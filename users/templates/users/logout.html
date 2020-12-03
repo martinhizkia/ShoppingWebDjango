@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="container">
+           <div class = "card">
+                <h6 class = "card-content"> 
+                    Anda Sudah Keluar
+                    <div>
+                        <small>
+                        Kembali ke Halaman<a href="{% url 'login' %}"> Login</a>
+                        </small>
+                    </div>
+                </h6>
+           </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="row">
+{% for item in products %}
+    {% if user.is_authenticated %}
+        <product-card harga ="{{ item.productPrice }}" imgsrc="{{ item.productImg }}"
+        name="{{ item.productName }}" url="{% url 'product-detailed' item.pk %}"
+        datprod = "{{item.pk}}"></product-card>
+    {% else %}
+        <guess-card harga ="{{ item.productPrice }}" imgsrc="{{ item.productImg }}"
+        name="{{ item.productName }}" url="{% url 'product-detailed' item.pk %}"></guess-card>
+    {% endif %}
+{% endfor %}
+</div>
+<div class="fixed-action-btn">
+    <a class="btn teal"><i class="large material-icons center-align">shopping_cart</i>
+        <small>{{cartItems}}</small>
+    </a>
+  </div>
+{% endblock %}

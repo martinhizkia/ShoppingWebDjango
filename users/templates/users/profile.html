@@ -1,0 +1,25 @@
+{% extends "store/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="container">
+           <div class = "card">
+                <h6 class = "card-content"> 
+                    Hi!, {{user.username}}
+                </h6>
+                <form method="POST">
+                        <div class = "card-content">
+                        {% csrf_token %}
+                            <h5>
+                                Update Profile
+                            </h5>
+                            {{ u_form|crispy }}
+                            <button class="waves-effect waves-light btn m-10">
+                           Update
+                            </button>
+                            </div>
+                    </form>
+           </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="container">
+<div class="progress ">
+        <div class="determinate" style="width: 66%"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <h5><blockquote>Alamat Pengiriman</blockquote></h5><hr>
+                <div class="row">
+                        <form class="col s12" id="form">
+                        <div class="row">
+                            <div class="input-field col s6">
+                              <input id="province" type="text" class="validate" name="province">
+                              <label for="province">Provinsi</label>
+                            </div>
+                            <div class="input-field col s6">
+                              <input id="city" type="text" class="validate" name="city">
+                              <label for="city">Kota</label>
+                            </div>
+                        </div>
+                                <div class="input-field m30">
+                                  <input id="address" type="text" class="validate"  name="address">
+                                  <label for="address">Alamat</label>
+                                </div>
+                        </form>
+                        <div class="center-align">
+                            <a class="waves-effect waves-light btn" id="payment-btn" href=""><i class="material-icons left">check_circle</i>Pembayaran</a>
+                        </div>
+                      </div>
+            </div>
+        </div>
+        <div class="card">
+
+                <ul class="collapsible">
+                    <li>
+                      <div class="collapsible-header">
+                          <img src="https://play-lh.googleusercontent.com/d81t4d8fwrofsDZODvpPZBuHV1RIhYpYuJmf9GOOPwSwU8uuQc3a98aX2nwGZy3yzJk" 
+                          width="40" height = "40 " alt=""><h6 class="ml-10">BNI</h6></div>
+                      <div class="collapsible-body"><span>Segera Transfer ke Rekening ini: 1885549848266262658 </span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <img src="https://store-images.s-microsoft.com/image/apps.23739.13510798882841848.3cc304fb-e443-4782-8423-5b221e99bb7c.32293fd0-225d-4de8-95b2-c0e7924674ef?mode=scale&q=90&h=300&w=300" 
+                            width="40" height = "40 " alt=""><h6 class="ml-10">BCA</h6></div>
+                        <div class="collapsible-body"><span>Segera Transfer ke Rekening ini: 1885549848266262658.</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <img src="https://savegame.id/wp-content/uploads/2019/12/gopay.jpg" 
+                            width="40" height = "40 " alt=""><h6 class="ml-10">Gopay</h6></div>
+                        <div class="collapsible-body"><span>Segera Transfer ke nomor ini: 0584858488484.</span></div>
+                    </li>
+                  </ul>
+            </div>
+      </div>
+    
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <h5><blockquote>Pesanan Anda</blockquote></h5><hr>
+                <div class="row center-align m-20">
+                        <div class="col s4">Nama Barang</div>
+                        <div class="col s2">Kuantitas</div>
+                        <div class="col s3">Harga Satuan</div>
+                        <div class="col s3">Total</div>
+                </div>
+            <hr>
+            {% for item in items%}
+            <!--REUSABLE-->
+            <div class="row center-align m-20">
+                    <div class="col s4">{{item.oiProduct.productName}}</div>
+                    <div class="col s2">{{item.oiQuantity}}</div>
+                    <div class="col s3">Rp{{item.oiProduct.productPrice}}</div>
+                    <div class="col s3">Rp{{item.get_total}}</div>
+            </div>
+            {% endfor %}
+            <hr>
+            <!--REUSABLE-->
+            <div class="row center-align m-20">
+                    <div class="col s4">Total Barang:</div>
+                    <div class="col s2">{{order.get_total_item}}</div>
+                    <div class="col s3">
+                            Total Harga:
+                    </div>
+                    <div class="col s3">
+                            Rp{{order.get_total_price}}
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
