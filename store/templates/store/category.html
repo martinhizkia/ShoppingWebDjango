@@ -1,0 +1,20 @@
+{% extends "store/base.html" %}
+{% block content %}
+
+<blockquote><h3>{{ category_name }}</h3></blockquote>
+<div class="container">
+
+    <div class="card-content">
+            <ul class="collection with-header">
+                <li class="collection-header"><blockquote><h4>Category</h4></blockquote></li>
+                {% for cat in cat_menu %}
+                <li class="collection-item"><div>{{cat.name}}<a href="{% url 'category' cat.name %}" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+                {% endfor %}
+                </ul>
+    </div>
+</div>
+
+</div>
+
+
+{% endblock %}

@@ -4,25 +4,18 @@ for(var i=0; i < updateBtns.length; i++){
   updateBtns[i].addEventListener('click', function(){
     var productId = this.dataset.product
     var action = this.dataset.action
+    document.location.reload(true)
     console.log('productID: ', productId, 'action: ', action)
     updateUserOrder(productId, action)
+
   })
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.materialboxed');
-    var instances = M.Materialbox.init(elems, options);
-  });
-
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems, options);
-  });
 
 document.getElementById('payment-btn').addEventListener('click', function(e){
     submitFormData();
   }
 );
+
 
 var form = document.getElementById('form')
 function submitFormData(){
@@ -51,6 +44,7 @@ function submitFormData(){
   })
   .then(data =>{
     console.log("Success");
+    window.location.href = "{% url 'page-home' %}"
   })
 }
 
@@ -73,5 +67,3 @@ function updateUserOrder(productId, action){
     location.reload()
   })
 }
-
-M.AutoInit();

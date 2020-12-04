@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import *
 from django.contrib.auth.models import User
@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 import json
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -26,12 +28,57 @@ def homepage(request):
         cartItems = order['get_total_item']
 
     products = Product.objects.all()
-    context = {'products': products, 'cartItems':cartItems}
+    p = Paginator(products, 6)
+    page_num = request.GET.get('page',1)
+    page = p.page(page_num)
+    context = {'products': page, 'cartItems':cartItems}
     return render(request, 'store/home.html',context)
 
 class detailedView(DetailView):
     model = Product
     template_name = 'store/detailed.html'
+
+class categorylist(ListView):
+    model = Product
+    context_object_name = 'categories'
+    cats = Category.objects.all()
+    template_name = 'store/category.html'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(categorylist, self).get_context_data( *args, **kwargs)
+        context['cat_menu'] = cat_menu
+        return context
+
+
+
+def product_category(request):
+    context = {
+        "categories": Category,
+    }
+    return render(request,"store/category.html",context)
+
+class searchView(ListView):
+    model = Product
+    context_object_name = 'all_search_results'
+    template_name = 'store/search.html'
+    
+    def get_queryset(self):
+        result = super(searchView, self).get_queryset()
+        query = self.request.GET.get('search')
+        print(query)
+        sss = (Q(productName__icontains=query))
+        if query:
+            postresult = Product.objects.filter(sss)
+            result = postresult
+        else:
+            result = None
+        return result
+
+def category(request, category_name):
+    products = Product.objects.filter(productCategory__name = category_name)
+    return render(request, 'store/categorical.html', {'category_name':category_name, 'products':products})
+
 
 @login_required
 def cart(request):
@@ -94,4 +141,20 @@ def processOrder(request):
         caProvince = data['alamatPengiriman']['province'],
         caCity = data['alamatPengiriman']['city'],
         caAddress = data['alamatPengiriman']['address'])
+        order.isComplete = True
+        order.save()
     return JsonResponse("Terima Kasih Telah Berbelaja", safe=False)
+
+@login_required
+def processdone(request):
+    return render(request, 'store/processorder.html')
+
+@login_required
+def history(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order = Order.objects.all().filter(orderCustomer=customer, isComplete=True)
+    else:
+        order= {"get_total_price":0, "get_total_item": 0}
+    context = {'orders': order}#'items': items,
+    return render(request, 'store/history.html', context)

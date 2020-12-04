@@ -45,6 +45,7 @@
       }
       a{
         text-decoration: none;
+        color: rgb(13, 185, 185);
       }
       body {
       display: flex;
@@ -59,6 +60,9 @@
       .ml-10{
         margin-left: 10px;
       }
+      .mt-70{
+        margin-top: 70px;
+      }
     </style>
   </header>
 
@@ -67,7 +71,8 @@
 <body>
   <nav>
     <div class="nav-wrapper ">
-      <a href="{% url 'page-home' %}" class="brand-logo left">BGS - GGEZ</a>
+    <a href="{% url 'page-home' %}" class = "brand-logo left">Bad Gaming Shop
+      <i class="large material-icons right">videogame_asset</i></a>
 
       <!--Dropdown Dataset-->
       <ul id="dropdown1" class="dropdown-content">
@@ -75,11 +80,11 @@
       </ul>
 
       <ul id="nav-mobile" class="right hide-on-med-and-down ">
-        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Kategori<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a href="#"><i class="material-icons">search</i></a></li>
+        <li><a href="{% url 'catlist' %}"><i class="material-icons">reorder</i></a></li>
+        <li><a href="{% url 'search-item' %}"><i class="material-icons">search</i></a></li>
         {% if user.is_authenticated %}
         <li><a href="{% url 'cart' %}"><i class="material-icons">shopping_cart</i></a></li>
-        <li><a href="{% url 'profile' %}"><i class="material-icons large left">account_circle</i>{{user.username}}</a></li>
+        <li><a href="{% url 'account' %}"><i class="material-icons large left">account_circle</i>{{user.username}}</a></li>
         <li><a class="waves-effect waves-light btn purple darken-1" href ="{% url 'logout' %}">Logout</a></li>
         {% else %}
         <li><a class="waves-effect waves-light btn" href ="{% url 'login' %}">Login</a></li>    
@@ -114,6 +119,7 @@
     <script src ="{% static 'store/Component/card2.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src ="{% static 'store/Script/main.js' %}"></script>
+    <script src ="{% static 'store/Script/view.js' %}"></script>
 </body>
 </main>
 <footer class="page-footer">

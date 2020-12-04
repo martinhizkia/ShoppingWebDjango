@@ -28,6 +28,9 @@ class Order(models.Model):
     
     def __str__(self):
         return str(self.pk)
+
+    def query_set(self):
+        return Order.objects.all()
     
     @property
     def get_total_price(self):

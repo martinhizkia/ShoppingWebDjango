@@ -12,9 +12,41 @@
     {% endif %}
 {% endfor %}
 </div>
+{% if user.is_authenticated %}
 <div class="fixed-action-btn">
-    <a class="btn teal"><i class="large material-icons center-align">shopping_cart</i>
+    <a class="btn teal" href ="{% url 'cart' %}"><i class="large material-icons center-align">shopping_cart</i>
         <small>{{cartItems}}</small>
     </a>
   </div>
+{% else %}
+<div class="fixed-action-btn">
+    <a class="btn teal disabled"><i class="large material-icons center-align">shopping_cart</i>
+        <small>{{cartItems}}</small>
+    </a>
+  </div>
+{% endif %}
+
+  <div class="container center-align">
+        {% if products.has_other_pages %}
+        <ul class="pagination">
+            {% if products.has_previous %}
+                <li class="waves-effect"><a href="?page={{page_obj.previous_page_number}}"><i class="material-icons">chevron_left</i></a></li>
+            {% else %}
+            <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
+            {% endif %}
+            {% for i in products.paginator.page_range %} 
+                {% if products.number == i %}
+                <li class="active"><a href="#!">{{ i }}</a></li>
+                {% else %}
+                <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %} 
+            {% endfor %}
+            {% if products.has_next %}
+            <li class="waves-effect"><a href="?page={{page_obj.previous_page_number}}"><i class="material-icons">chevron_right</i></a></li>
+            {% else %}
+            <li class="disabled"><a href=""><i class="material-icons">chevron_right</i></a></li>
+            {% endif %}
+        </ul>          
+  </div>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "store/base.html" %}
+{% block content %}
+
+<blockquote><h3>{{ category_name }}</h3></blockquote>
+<div class = "mt-30 row">
+{% if products %}
+{% for item in products %}
+    {% if user.is_authenticated %}
+        <product-card harga ="{{ item.productPrice }}" imgsrc="{{ item.productImg }}"
+        name="{{ item.productName }}" url="{% url 'product-detailed' item.pk %}"
+        datprod = "{{item.pk}}"></product-card>
+    {% else %}
+        <guess-card harga ="{{ item.productPrice }}" imgsrc="{{ item.productImg }}"
+        name="{{ item.productName }}" url="{% url 'product-detailed' item.pk %}"></guess-card>
+    {% endif %}
+{% endfor %}
+{% else %}
+    <h3>Tidak ada</h3>
+{% endif %}
+</div>
+
+
+{% endblock %}

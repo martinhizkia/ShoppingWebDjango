@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.views import generic
 
 def register(request):
     if request.method == 'POST':
@@ -30,4 +33,10 @@ def profile(request):
 
 @login_required
 def settings(request):
-    return render(request, 'users/profile2.html')
+    return render(request, 'users/account.html')
+
+#class PasswordsChangeView(PasswordChangeView):
+    #form_class = PasswordChangeView
+    #template_name = 'users/changepassword.html'
+    #success_url = reverse_lazy('account')
+

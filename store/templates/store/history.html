@@ -1,0 +1,26 @@
+{% extends "store/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+                    <h5><blockquote>Riwayat Pemesanan</blockquote></h5>
+                <hr>
+                <div class="row center-align m-20">
+                    <div class="col s3">ID Transaksi</div>
+                    <div class="col s3">Tanggal Transaksi</div>
+                    <div class="col s3">Jumlah Barang</div>
+                    <div class="col s3">Total Pembayaran</div>
+            </div>
+        <hr>
+                {% for order in orders %}
+                <div class="row center-align">
+                    <div class="col s4">{{order.pk}}</div>
+                    <div class="col s2">{{order.orderDate}}</div>
+                    <div class="col s3">{{order.get_total_item}}</div>
+                    <div class="col s3">Rp{{order.get_total_price}}</div>
+            </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

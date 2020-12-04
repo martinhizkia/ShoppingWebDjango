@@ -21,10 +21,14 @@
             <div class = "container col s3">
                     <a class="
                     {% if user.is_authenticated %}
-                    waves-effect waves-light btn-large
+                    waves-effect waves-light btn-large update-cart add-btn 
                     {% else %}
                     btn-large disabled
-                    {% endif %}"><i class="material-icons left">shopping_cart
+                    {% endif %}"
+                    data-product = "{{object.pk}}"
+                    data-action = "add"
+                    onclick= "M.toast({html: 'Produk telah ditambahkan!'})">
+                    <i class="material-icons left"">shopping_cart
                         </i>Masukkan Keranjang</a>
                         <hr>
                         <a class="waves-effect waves-light btn-large"><i class="material-icons left">settings_phone
