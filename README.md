@@ -1,5 +1,4 @@
-Gaming Equipent Website 
-Using posgres and Django.<br>
-Front End is done with Materialize CSS and Javascript
-Back End is done using Django
-Database is handled by postgresql 
+# Simple Ecommerce Website
+Simple Project Using Python Django, Javascript, HTML, and MaterializeCSS <br>
+Using postgreSQL to handle the database
+<br>
